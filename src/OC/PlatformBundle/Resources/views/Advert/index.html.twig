@@ -1,0 +1,45 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/index.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+  <h2>Liste des annonces</h2>
+
+  <ul>
+    {% for advert in listAdverts %}
+      <li>
+        <a href="{{ path('oc_platform_view', {'id': advert.id}) }}">
+          {{ advert.title }}
+        </a>
+        par {{ advert.author }},
+        le {{ advert.date|date('d/m/Y') }} <br />
+
+        {% if not advert.advertSkills.empty %}
+          Cette annonce requiert les compétences suivantes :<br />
+          {% for advertSkill in advert.advertSkills %}
+            {{ advertSkill.skill.name }} : {{ advertSkill.level }} <br />
+          {% endfor %}
+        {% endif %}
+
+      </li>
+    {% else %}
+      <li>Pas (encore !) d'annonces</li>
+    {% endfor %}
+  </ul>
+
+  {% if nbPages > 0 %}
+    <ul class="pagination">
+      {% for i in 1..nbPages %}
+          <li {% if i == page %} class="active" {% endif %}>
+            <a href="{{ path('oc_platform_home', {'page': i}) }}">{{ i }}</a>
+          </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock %}

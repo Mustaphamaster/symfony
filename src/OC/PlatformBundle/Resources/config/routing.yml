@@ -1,0 +1,5 @@
+# src/OC/PlatformBundle/Resources/config/routing.yml
+
+oc_platform:
+    resource: "@OCPlatformBundle/Resources/config/routing/advert.yml"
+    prefix:      /
